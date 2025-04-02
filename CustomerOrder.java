@@ -33,6 +33,12 @@ public class CustomerOrder {
 
     }
 
+    public int getQuantity() {//gets quantity for later function
+
+        return quantity;
+
+    }
+
     //tostring
     @Override
     public String toString() {

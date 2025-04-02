@@ -1,4 +1,6 @@
-public class OrderQueue implements Queue<T> {
+import java.util.ArrayList;
+
+public class OrderQueue extends ArrayQueue<T> {
 
     private Queue<CustomerOrder> queue; //linked queue of customer orders
     private int stock;
@@ -7,15 +9,15 @@ public class OrderQueue implements Queue<T> {
     //dfault const
     public OrderQueue() {
 
-        queue = new Queue<>();
-        stock = 0;
-        size = 0;
+        this.queue = new Queue<>();
+        this.stock = 0;
+        this.size = 0;
 
     }
 
     public OrderQueue ( int initialStock ) {
 
-        this();
+        this.queue = new Queue<>();
         stock = initialStock;
 
     }
@@ -28,15 +30,51 @@ public class OrderQueue implements Queue<T> {
 
     }
 
-    public void fulfillOrder() {
+    public void addStock ( int newStock ) {
+
+        stock += newStock;
+
+    }
+
+    public void fulfillOrder() { //fulfills just one order
 
         if ( stock > 0 && !queue.isEmpty() ) {
 
-            CustomerOrder order = queue.first();
+            CustomerOrder order = queue.peek();
             order.shipProduct();
             stock--;
 
+            if ( order.getQuantity() == 0 ) {
+
+                queue.dequeue();
+                size--;
+
+            }
+
         }
+
+    }
+
+    public void fulfillAll() { //fulfills all orders
+
+        while ( stock > 0 && !queue.isEmpty() ) {
+
+            fulfillOrder();
+
+        }
+
+    }
+
+    @Override
+    public String toString() {
+
+        if ( !queue.isEmpty() ) {
+
+            return queue.peek().toString();
+
+        }
+
+        return "empty";
 
     }
 

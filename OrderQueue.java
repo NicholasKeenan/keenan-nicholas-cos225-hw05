@@ -1,15 +1,13 @@
-import java.util.ArrayList;
+public class OrderQueue {
 
-public class OrderQueue extends ArrayQueue<T> {
-
-    private Queue<CustomerOrder> queue; //linked queue of customer orders
+    private ArrayQueue<CustomerOrder> queue; //linked queue of customer orders
     private int stock;
     private int size;
 
     //dfault const
     public OrderQueue() {
 
-        this.queue = new Queue<>();
+        this.queue = new ArrayQueue<>();
         this.stock = 0;
         this.size = 0;
 
@@ -17,16 +15,14 @@ public class OrderQueue extends ArrayQueue<T> {
 
     public OrderQueue ( int initialStock ) {
 
-        this.queue = new Queue<>();
-        stock = initialStock;
+        this.queue = new ArrayQueue<>();
+        this.stock = initialStock;
 
     }
 
     public void addOrder ( String name, String date, int quantity ) {
 
-        CustomerOrder order = new CustomerOrder ( name, date, quantity );
-        queue.enqueue ( order );
-        size++;
+        queue.enqueue ( new CustomerOrder ( name, date, quantity ) );
 
     }
 

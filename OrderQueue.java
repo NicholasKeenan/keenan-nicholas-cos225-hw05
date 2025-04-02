@@ -34,20 +34,18 @@ public class OrderQueue {
 
     public void fulfillOrder() { //fulfills just one order
 
-        if ( stock > 0 && !queue.isEmpty() ) {
+        if ( stock <= 0 || queue.isEmpty() ) return;
 
-            CustomerOrder order = queue.peek();
-            order.shipProduct();
-            stock--;
+        CustomerOrder order = queue.peek();
+        order.shipProduct();
+        stock--;
 
-            if ( order.getQuantity() == 0 ) {
+        if ( order.getQuantity() == 0 ) {
 
-                queue.dequeue();
-                size--;
-
-            }
+            queue.dequeue();
 
         }
+
 
     }
 
